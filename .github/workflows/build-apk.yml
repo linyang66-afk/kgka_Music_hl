@@ -1,6 +1,6 @@
 name: 编译Android Debug APK
 on:
-  workflow_dispatch: # 网页手动触发
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,22 +15,6 @@ jobs:
           flutter-version: '3.11.5'
           channel: stable
 
-      - name: 配置国内Gradle镜像
-        run: |
-          mkdir -p ~/.gradle
-          echo '
-          repositories {
-              maven { url "https://maven.aliyun.com/repository/google" }
-              maven { url "https://maven.aliyun.com/repository/jcenter" }
-              maven { url "https://maven.aliyun.com/repository/public" }
-              google()
-              mavenCentral()
-          }
-          ' > ~/.gradle/init.gradle
-
-      - name: 安装依赖
-        run: flutter pub get
-
       - name: 编译Debug APK
         run: flutter build apk --debug
 
@@ -38,4 +22,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: KA-Music-Debug-APK
-          path: build/app/outputs/flutter-apk/*.apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
