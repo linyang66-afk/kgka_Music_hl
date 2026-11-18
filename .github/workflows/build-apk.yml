@@ -9,11 +9,14 @@ jobs:
       - name: 检出源码
         uses: actions/checkout@v4
 
-      - name: 配置Flutter 3.11.5
+      - name: 配置Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.11.5'
+          flutter-version: '3.13.0'
           channel: stable
+
+      - name: 打印环境
+        run: flutter doctor
 
       - name: 编译Debug APK
         run: flutter build apk --debug
@@ -21,5 +24,5 @@ jobs:
       - name: 上传APK
         uses: actions/upload-artifact@v4
         with:
-          name: KA-Music-Debug-APK
+          name: app-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
